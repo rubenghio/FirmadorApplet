@@ -1,20 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-<!--  	<parent>
-		<artifactId>Firmador_Parent</artifactId>
-		<groupId>ar.gob.onti.firmador</groupId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>-->
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.gob.onti.firmador</groupId>
 	<artifactId>FirmaApplet</artifactId>
 	<packaging>jar</packaging>
 	<name>FirmaApplet</name>
-	<version>1.0</version>
+	<version>1.0.0-SNAPSHOT</version>
 
 	<build>
 		<testOutputDirectory>target/test-classes</testOutputDirectory>
-        <testSourceDirectory>test/src</testSourceDirectory>
+		<testSourceDirectory>test/src</testSourceDirectory>
 		<sourceDirectory>app/src</sourceDirectory>
 		<resources>
 			<resource>
@@ -27,7 +22,7 @@
 			</testResource>
 		</testResources>
 		<plugins>
-		<plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -58,26 +53,21 @@
 		</plugins>
 	</build>
 	<dependencies>
-    <dependency>
-		<groupId>com.lowagie</groupId>
-		<artifactId>itext</artifactId>
-    	<version>5.0.2</version>
-    </dependency>
-    <dependency>
-     	<groupId>org.bouncycastle</groupId>
-     	<artifactId>bcprov-jdk16</artifactId>
-     	<version>1.44</version>
-     </dependency>	
 		<dependency>
-      <groupId>plugin</groupId>
-      <artifactId>plugin</artifactId>
-      <version>1.5</version>
-    </dependency>
-<!-- 	<dependency>
-	    <groupId>accv</groupId>
-	    <artifactId>arangi_base</artifactId>
-	    <version>1.1.5</version>
-	  </dependency> -->    
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>5.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+			<version>1.44</version>
+		</dependency>
+		<dependency>
+			<groupId>plugin</groupId>
+			<artifactId>plugin</artifactId>
+			<version>1.5</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -92,7 +82,7 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.8.2</version>
-			 <scope>test</scope>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
@@ -121,34 +111,36 @@
 		</dependency>
 	</dependencies>
 	<profiles>
-    <profile>
-      <id>production</id>
-      <activation>
-        <property><name>FIRMADOR_PROD</name></property>
-      </activation>
-      <build>
-        <plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jarsigner-plugin</artifactId>
-				<version>1.2</version>
-				<executions>
-					<execution>
-						<id>sign</id>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
- 				    <keystore>${env.FIRMADOR_KEYSTORE}</keystore>			
-					<alias>${env.FIRMADOR_ALIAS}</alias>
-					<storepass>${env.FIRMADOR_STOREPASS}</storepass>
-					<keypass>${env.FIRMADOR_KEYPASS}</keypass>
-				</configuration>
-			</plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+		<profile>
+			<id>production</id>
+			<activation>
+				<property>
+					<name>FIRMADOR_PROD</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jarsigner-plugin</artifactId>
+						<version>1.2</version>
+						<executions>
+							<execution>
+								<id>sign</id>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<keystore>${FIRMADOR_KEYSTORE}</keystore>
+							<alias>${FIRMADOR_ALIAS}</alias>
+							<storepass>${FIRMADOR_STOREPASS}</storepass>
+							<keypass>${FIRMADOR_KEYPASS}</keypass>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
