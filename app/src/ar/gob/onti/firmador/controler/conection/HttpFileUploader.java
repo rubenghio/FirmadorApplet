@@ -1,5 +1,6 @@
 package ar.gob.onti.firmador.controler.conection;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -18,6 +19,7 @@ import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -93,7 +95,7 @@ public class HttpFileUploader extends HttpFileConnection {
 			entity.addPart("tipoDeArchivo", new StringBody(tipoArchivo));
 			entity.addPart("codigo", new StringBody(codigo));
 			entity.addPart("userName", new StringBody(myProps.getUserName()));
-			entity.addPart("md5_fileSigned", new StringBody(fileName));
+			entity.addPart("md5_fileSigned", new FileBody(new File(fileName)));
 			post.setEntity(entity);
 			HttpResponse httpResponse = client.execute(post);
 			int status = httpResponse.getStatusLine().getStatusCode();
